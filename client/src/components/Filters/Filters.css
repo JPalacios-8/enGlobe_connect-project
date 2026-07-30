@@ -1,0 +1,62 @@
+.filters{
+
+    display:flex;
+
+    gap:16px;
+
+    margin-bottom:28px;
+
+    align-items:center;
+
+}
+
+.filters input,
+.filters select{
+
+    height:44px;
+
+    border:1px solid #E5E7EB;
+
+    border-radius:10px;
+
+    padding:0 14px;
+
+    background:white;
+
+    font-size:14px;
+
+}
+
+.search-input{
+
+    width:280px;
+
+}
+
+.new-launch-btn{
+
+    margin-left:auto;
+
+    background:#111827;
+
+    color:white;
+
+    border:none;
+
+    border-radius:10px;
+
+    padding:0 22px;
+
+    height:44px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+}
+
+.new-launch-btn:hover{
+
+    background:black;
+
+}
