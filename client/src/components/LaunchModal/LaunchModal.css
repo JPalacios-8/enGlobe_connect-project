@@ -122,15 +122,17 @@
 
     padding:10px 16px;
 
-    border-radius:8px;
+    border-radius:0;
 
     border:1px solid #D1D5DB;
 
-    background:white;
+    background:rgb(216, 215, 215);
 
     cursor:pointer;
 
     font-weight:500;
+
+    
 
 }
 

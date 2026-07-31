@@ -1,0 +1,47 @@
+.create-modal{
+
+    position:fixed;
+
+    top:0;
+
+    right:0;
+
+    width:500px;
+
+    height:100vh;
+
+    background:white;
+
+    box-shadow:-8px 0 24px rgba(0,0,0,.15);
+
+    padding:28px;
+
+    overflow:auto;
+
+    z-index:1000;
+
+}
+
+.create-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:24px;
+
+}
+
+.close-btn{
+
+    border:none;
+
+    background:none;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+}

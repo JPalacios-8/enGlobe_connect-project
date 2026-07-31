@@ -1,0 +1,23 @@
+.asset-list{
+
+    margin-top:18px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+.asset-item{
+
+    padding:12px;
+
+    border:1px solid #E5E7EB;
+
+    border-radius:8px;
+
+    background:#F9FAFB;
+
+}

@@ -1,0 +1,37 @@
+.history{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:16px;
+
+    margin-top:18px;
+
+}
+
+.history-item{
+
+    border-left:3px solid #111827;
+
+    padding-left:16px;
+
+}
+
+.history-item h4{
+
+    margin:0;
+
+    font-size:13px;
+
+    color:#6B7280;
+
+}
+
+.history-item p{
+
+    margin-top:6px;
+
+    font-size:14px;
+
+}

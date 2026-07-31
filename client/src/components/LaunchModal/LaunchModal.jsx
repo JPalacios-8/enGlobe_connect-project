@@ -2,91 +2,211 @@ import "./LaunchModal.css";
 import OverviewTab from "./OverviewTab";
 
 import { useRole } from "../../context/RoleContext";
+import api from "../../services/api";
+import { useState } from "react";
 
-function LaunchModal({ launch, onClose }) {
+import DescriptionTab from "./DescriptionTab";
+import AssetsTab from "./AssetsTab";
+import HistoryTab from "./HistoryTab";
 
-    const { role } = useRole();
+function LaunchModal({
+  launch,
+  onClose,
+  loadLaunches,
+  onEdit,
+}) {
 
-    return (
+  const { role } = useRole();
+  const [activeTab, setActiveTab] = useState("overview");
 
-        <aside className="launch-modal">
+  async function updateStatus(status) {
 
-            <div className="modal-header">
+    try {
 
-                <div>
+      await api.patch(
+        `/launches/${launch.id}/status`,
+        { status }
+      );
 
-                    <h2>{launch.name}</h2>
+      await loadLaunches();
 
-                    <p>{launch.assigned_to}</p>
+      onClose();
 
-                </div>
+    } catch (error) {
 
-                <button onClick={onClose}>
-                    ✕
-                </button>
+      console.error(error);
 
-            </div>
+    }
 
-            <div className="tabs">
+  }
 
-                <button className="active-tab">
-                    Overview
-                </button>
+  async function handleDelete() {
 
-                <button>
-                    Description
-                </button>
+    if (!window.confirm("Archive this launch?")) {
+      return;
+    }
 
-                <button>
-                    Assets
-                </button>
+    try {
 
-                <button>
-                    History
-                </button>
+      await api.delete(`/launches/${launch.id}`);
 
-            </div>
-            
-            <div className="modal-actions">
+      await loadLaunches();
 
-                {role === "Creator" ? (
+      onClose();
 
-                <>
+    } catch (error) {
 
-                    <button>Edit</button>
+      console.error(error);
 
-                    <button>Delete</button>
+    }
 
-                    <button className="primary">
-                    Submit to Review
-                    </button>
+  }
 
-                </>
+  return (
 
-                ) : (
+    <aside className="launch-modal">
 
-                <>
+      <div className="modal-header">
 
-                    <button className="primary">
-                    Approve
-                    </button>
+        <div>
 
-                    <button>
-                    Send Back
-                    </button>
+          <h2>{launch.name}</h2>
 
-                </>
-
-                )}
+          <p>{launch.assigned_to}</p>
 
         </div>
 
+        <button
+          className="close-btn"
+          onClick={onClose}
+        >
+          ✕
+
+        </button>
+
+      </div>
+
+      <div className="tabs">
+
+        <button
+            className={activeTab === "overview" ? "active-tab" : ""}
+            onClick={() => setActiveTab("overview")}
+        >
+            Overview
+        </button>
+
+        <button
+            className={activeTab === "description" ? "active-tab" : ""}
+            onClick={() => setActiveTab("description")}
+        >
+            Description
+        </button>
+
+        <button
+            className={activeTab === "assets" ? "active-tab" : ""}
+            onClick={() => setActiveTab("assets")}
+        >
+            Assets
+        </button>
+
+        <button
+            className={activeTab === "history" ? "active-tab" : ""}
+            onClick={() => setActiveTab("history")}
+        >
+            History
+        </button>
+
+    </div>
+
+      <div className="modal-actions">
+
+        {role === "Creator" ? (
+
+          <>
+
+            <button
+              onClick={() => onEdit(launch)}
+            >
+              Edit
+            </button>
+
+            <button
+              onClick={handleDelete}
+            >
+              Delete
+            </button>
+
+            {launch.status === "Draft" && (
+
+              <button
+                className="primary"
+                onClick={() =>
+                  updateStatus("In Review")
+                }
+              >
+                Submit to Review
+              </button>
+
+            )}
+
+          </>
+
+        ) : (
+
+          <>
+
+            {launch.status === "In Review" && (
+
+              <>
+
+                <button
+                  className="primary"
+                  onClick={() =>
+                    updateStatus("Approved")
+                  }
+                >
+                  Approve
+                </button>
+
+                <button
+                  onClick={() =>
+                    updateStatus("Draft")
+                  }
+                >
+                  Send Back
+                </button>
+
+              </>
+
+            )}
+
+          </>
+
+        )}
+
+      </div>
+
+        <>
+        {activeTab === "overview" && (
             <OverviewTab launch={launch} />
+        )}
 
-        </aside>
+        {activeTab === "description" && (
+            <DescriptionTab launch={launch} />
+        )}
 
-    )
+        {activeTab === "assets" && (
+            <AssetsTab launch={launch} />
+        )}
 
-}
+        {activeTab === "history" && (
+            <HistoryTab launch={launch} />
+        )}
+    </>
 
+    </aside>
+
+  );
+
+};
 export default LaunchModal;

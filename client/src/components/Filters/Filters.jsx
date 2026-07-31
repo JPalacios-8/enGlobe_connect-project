@@ -1,6 +1,6 @@
 import "./Filters.css";
 
-function Filters() {
+function Filters({ onCreate }) {
   return (
     <section className="filters">
 
@@ -20,8 +20,11 @@ function Filters() {
 
       <input type="date" />
 
-      <button className="new-launch-btn">
-        + New Launch
+      <button
+          className="new-launch-btn"
+          onClick={onCreate}
+      >
+          + New Launch
       </button>
 
     </section>

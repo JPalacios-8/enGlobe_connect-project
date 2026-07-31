@@ -1,0 +1,139 @@
+.launch-form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+.form-section{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:14px;
+
+}
+
+.form-section h3{
+
+    margin-top:10px;
+
+    margin-bottom:6px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    color:#6B7280;
+
+    text-transform:uppercase;
+
+    letter-spacing:.08em;
+
+}
+
+.form-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:6px;
+
+}
+
+.form-group label{
+
+    font-size:13px;
+
+    font-weight:600;
+
+    color:#374151;
+
+}
+
+.launch-form input,
+.launch-form select,
+.launch-form textarea{
+
+    width:100%;
+
+    padding:12px 14px;
+
+    border:1px solid #D1D5DB;
+
+    border-radius:8px;
+
+    font-size:14px;
+
+    background:white;
+
+    transition:.2s;
+
+    box-sizing:border-box;
+
+}
+
+.launch-form input:focus,
+.launch-form select:focus,
+.launch-form textarea:focus{
+
+    outline:none;
+
+    border-color:#111827;
+
+}
+
+.launch-form textarea{
+
+    resize:vertical;
+
+    min-height:110px;
+
+}
+
+.form-buttons{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:12px;
+
+    margin-top:24px;
+
+}
+
+.form-buttons button{
+
+    padding:10px 20px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+}
+
+.form-buttons button:first-child{
+
+    background:white;
+
+    border:1px solid #D1D5DB;
+
+}
+
+.form-buttons .primary{
+
+    background:#111827;
+
+    color:white;
+
+    border:none;
+
+}
