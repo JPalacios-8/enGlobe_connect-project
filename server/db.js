@@ -31,6 +31,8 @@ db.serialize(() => {
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
       updated_at TEXT DEFAULT CURRENT_TIMESTAMP
     )`, 
+
+    
     
     (error) => {
     if (error) {
@@ -39,6 +41,18 @@ db.serialize(() => {
       console.log("Launches table ready.");
     }
   });
+
+    db.run(`
+    CREATE TABLE IF NOT EXISTS launch_history (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      launch_id INTEGER NOT NULL,
+      action TEXT NOT NULL,
+      performed_by TEXT,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (launch_id) REFERENCES launches(id)
+    )
+  `);
+  
   db.run(`
     CREATE TABLE IF NOT EXISTS assets (
 

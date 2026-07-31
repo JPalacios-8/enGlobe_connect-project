@@ -23,10 +23,16 @@ function LaunchModal({
 
     try {
 
-      await api.patch(
-        `/launches/${launch.id}/status`,
-        { status }
-      );
+        await api.patch(
+            `/launches/${launch.id}/status`,
+            {
+                status,
+                performedBy:
+                role === "Creator"
+                    ? launch.creator
+                    : launch.assigned_to,
+            }
+         );
 
       await loadLaunches();
 

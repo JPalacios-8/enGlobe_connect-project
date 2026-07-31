@@ -1,6 +1,51 @@
+import { useEffect, useState } from "react";
+import api from "../../services/api";
+
 import "./HistoryTab.css";
 
 function HistoryTab({ launch }) {
+
+  const [history, setHistory] = useState([]);
+
+  useEffect(() => {
+
+    loadHistory();
+
+  }, [launch]);
+
+  async function loadHistory() {
+
+    try {
+
+      const response = await api.get(
+        `/launches/${launch.id}/history`
+      );
+
+      setHistory(response.data);
+
+    } catch (error) {
+
+      console.error(error);
+
+    }
+
+  }
+
+  function getIcon(action) {
+
+    if (action.includes("Approved")) return "🔵";
+
+    if (action.includes("In Review")) return "🟠";
+
+    if (action.includes("created")) return "🟢";
+
+    if (action.includes("updated")) return "🟡";
+
+    if (action.includes("archived")) return "🔴";
+
+    return "⚪";
+
+  }
 
   return (
 
@@ -22,27 +67,36 @@ function HistoryTab({ launch }) {
 
       </div>
 
-      <div className="history-item">
+      <div className="history-timeline">
 
-        <h4>Status</h4>
+        <h3>Activity History</h3>
 
-        <p>{launch.status}</p>
+        {history.map((item) => (
 
-      </div>
+          <div
+            className="timeline-item"
+            key={item.id}
+          >
 
-      <div className="history-item">
+            <div className="timeline-icon">
 
-        <h4>Creator</h4>
+              {getIcon(item.action)}
 
-        <p>{launch.creator}</p>
+            </div>
 
-      </div>
+            <div className="timeline-content">
 
-      <div className="history-item">
+              <strong>{item.action}</strong>
 
-        <h4>Assigned To</h4>
+              <p>{item.performed_by}</p>
 
-        <p>{launch.assigned_to}</p>
+              <span>{item.created_at}</span>
+
+            </div>
+
+          </div>
+
+        ))}
 
       </div>
 

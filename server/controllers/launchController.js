@@ -26,7 +26,10 @@ const getAllLaunches = (req, res) => {
 const updateLaunchStatus = (req, res) => {
 
   const { id } = req.params;
-  const { status } = req.body;
+  const {
+    status,
+    performedBy,
+  } = req.body;
 
   db.run(
     `
@@ -42,7 +45,11 @@ const updateLaunchStatus = (req, res) => {
           error: err.message,
         });
       }
-
+      addHistory(
+        id,
+        `Status changed to ${status}`,
+        performedBy
+      );
       res.json({
         message: "Status updated successfully",
       });
@@ -105,9 +112,16 @@ const createLaunch = (req, res) => {
         });
       }
 
+    addHistory(
+      this.lastID,
+      "Launch created",
+      creator
+    );
+
       res.status(201).json({
         id: this.lastID,
         message: "Launch created successfully",
+        
       });
 
     }
@@ -119,27 +133,59 @@ const deleteLaunch = (req, res) => {
 
   const { id } = req.params;
 
-  db.run(
-    `
-    UPDATE launches
-    SET archived = 1,
-        updated_at = CURRENT_TIMESTAMP
-    WHERE id = ?
-    `,
-    [id],
-    function (err) {
+  db.get(
 
-      if (err) {
+    "SELECT creator FROM launches WHERE id = ?",
+
+    [id],
+
+    (err, row) => {
+
+      if (err || !row) {
+
         return res.status(500).json({
-          error: err.message,
+          error: "Launch not found",
         });
+
       }
 
-      res.json({
-        message: "Launch archived successfully",
-      });
+      db.run(
+
+        `
+        UPDATE launches
+        SET archived = 1,
+            updated_at = CURRENT_TIMESTAMP
+        WHERE id = ?
+        `,
+
+        [id],
+
+        function (err) {
+
+          if (err) {
+
+            return res.status(500).json({
+              error: err.message,
+            });
+
+          }
+
+          addHistory(
+            id,
+            "Launch archived",
+            row.creator
+          );
+
+          res.json({
+            message: "Launch archived successfully",
+          });
+
+        }
+
+      );
 
     }
+
   );
 
 };
@@ -198,6 +244,12 @@ const updateLaunch = (req, res) => {
           error: err.message,
         });
       }
+      addHistory(
+        id,
+        "Launch updated",
+
+        creator
+      );
 
       res.json({
         message: "Launch updated successfully",
@@ -208,6 +260,26 @@ const updateLaunch = (req, res) => {
 
 };
 
+function addHistory(
+  launchId,
+  action,
+  performedBy
+) {
+
+  db.run(
+    `
+    INSERT INTO launch_history
+    (launch_id, action, performed_by)
+    VALUES (?, ?, ?)
+    `,
+    [
+      launchId,
+      action,
+      performedBy,
+    ]
+  );
+
+}
 module.exports = {
   getAllLaunches,
   updateLaunchStatus,

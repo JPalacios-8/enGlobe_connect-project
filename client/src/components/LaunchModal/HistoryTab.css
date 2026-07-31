@@ -4,17 +4,17 @@
 
     flex-direction:column;
 
-    gap:16px;
-
-    margin-top:18px;
+    gap:24px;
 
 }
 
 .history-item{
 
-    border-left:3px solid #111827;
+    display:flex;
 
-    padding-left:16px;
+    flex-direction:column;
+
+    gap:6px;
 
 }
 
@@ -22,7 +22,7 @@
 
     margin:0;
 
-    font-size:13px;
+    font-size:14px;
 
     color:#6B7280;
 
@@ -30,8 +30,66 @@
 
 .history-item p{
 
-    margin-top:6px;
+    margin:0;
 
-    font-size:14px;
+    font-weight:600;
+
+}
+
+.history-timeline{
+
+    border-top:1px solid #E5E7EB;
+
+    padding-top:20px;
+
+}
+
+.history-timeline h3{
+
+    margin-bottom:20px;
+
+}
+
+.timeline-item{
+
+    display:flex;
+
+    gap:16px;
+
+    margin-bottom:20px;
+
+}
+
+.timeline-icon{
+
+    font-size:20px;
+
+    width:28px;
+
+}
+
+.timeline-content{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:4px;
+
+}
+
+.timeline-content p{
+
+    margin:0;
+
+    color:#6B7280;
+
+}
+
+.timeline-content span{
+
+    font-size:13px;
+
+    color:#9CA3AF;
 
 }
