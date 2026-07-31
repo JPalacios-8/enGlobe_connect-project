@@ -18,6 +18,17 @@ function LaunchManagement() {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [editingLaunch, setEditingLaunch] = useState(null);
   const [launches, setLaunches] = useState([]);
+  const [filters, setFilters] = useState({
+
+    search: "",
+
+    market: "",
+
+    status: "",
+
+    launch_date: "",
+
+  });
 
   useEffect(() => {
     loadLaunches();
@@ -32,6 +43,39 @@ function LaunchManagement() {
     }
   }
 
+  const filteredLaunches = launches.filter((launch) => {
+
+    const matchesSearch =
+      launch.name
+        .toLowerCase()
+        .includes(filters.search.toLowerCase());
+
+    const matchesMarket =
+      filters.market === "" ||
+      launch.market === filters.market;
+
+    const matchesStatus =
+      filters.status === "" ||
+      launch.status === filters.status;
+
+    const matchesDate =
+      filters.launch_date === "" ||
+      launch.launch_date >= filters.launch_date;
+
+    return (
+
+      matchesSearch &&
+
+      matchesMarket &&
+
+      matchesStatus &&
+
+      matchesDate
+
+    );
+
+  });
+
   return (
     <div className="launch-page">
 
@@ -44,11 +88,15 @@ function LaunchManagement() {
         <DashboardStats launches={launches} />
 
         <Filters
-          onCreate = {() => setShowCreateModal(true)}
+          filters={filters}
+
+          setFilters={setFilters}
+
+          onCreate={() => setShowCreateModal(true)}
         /> 
 
         <LaunchTable
-          launches={launches}
+          launches={filteredLaunches}
           onSelectLaunch={setSelectedLaunch}
         /> 
 
