@@ -21,3 +21,47 @@
     background:#F9FAFB;
 
 }
+
+.asset-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:12px;
+
+    border:1px solid #E5E7EB;
+
+    border-radius:8px;
+
+    background:#F9FAFB;
+
+}
+
+.asset-item:hover{
+
+    background:#F3F4F6;
+
+}
+
+.asset-item a{
+
+    color:#111827;
+
+    text-decoration:none;
+
+}
+
+.delete-asset{
+
+    border:none;
+
+    background:none;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+}

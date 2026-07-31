@@ -1,16 +1,95 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import api from "../../services/api";
 
 import "./AssetsTab.css";
 
-function AssetsTab() {
+function AssetsTab({ launch }) {
 
-  const [files, setFiles] = useState([]);
+  const [assets, setAssets] = useState([]);
 
-  function handleFiles(e) {
+  async function loadAssets() {
 
-    setFiles([...files, ...Array.from(e.target.files)]);
+    try {
+
+      const response = await api.get(`/assets/${launch.id}`);
+
+      setAssets(response.data);
+
+    } catch (error) {
+
+      console.error(error);
+
+    }
 
   }
+
+  useEffect(() => {
+
+    loadAssets();
+
+  }, []);
+
+  async function handleUpload(e) {
+
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    const formData = new FormData();
+
+    formData.append("file", file);
+
+    try {
+
+      await api.post(
+
+        `/assets/${launch.id}`,
+
+        formData,
+
+        {
+
+          headers: {
+
+            "Content-Type": "multipart/form-data",
+
+          },
+
+        }
+
+      );
+
+      loadAssets();
+
+    } catch (error) {
+
+      console.error(error);
+
+    }
+
+  }
+
+  async function handleDelete(assetId) {
+
+        if (!window.confirm("Delete this asset?")) {
+
+            return;
+
+        }
+
+        try {
+
+            await api.delete(`/assets/${assetId}`);
+
+            loadAssets();
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    }
 
   return (
 
@@ -22,33 +101,52 @@ function AssetsTab() {
 
         type="file"
 
-        multiple
-
-        onChange={handleFiles}
+        onChange={handleUpload}
 
       />
 
       <div className="asset-list">
 
-        {files.length === 0 && (
+        {assets.length === 0 && (
 
           <p>No assets uploaded.</p>
 
         )}
 
-        {files.map((file,index)=>(
+        {assets.map((asset) => (
 
           <div
-
             className="asset-item"
+            key={asset.id}
+        >
 
-            key={index}
+            <a
 
-          >
+                href={`http://localhost:3000/uploads/${asset.file_path}`}
 
-            📎 {file.name}
+                target="_blank"
 
-          </div>
+                rel="noreferrer"
+
+            >
+
+                📎 {asset.file_name}
+
+            </a>
+
+            <button
+
+                className="delete-asset"
+
+                onClick={() => handleDelete(asset.id)}
+
+            >
+
+                X
+
+            </button>
+
+        </div>
 
         ))}
 

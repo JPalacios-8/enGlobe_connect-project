@@ -30,14 +30,35 @@ db.serialize(() => {
       archived INTEGER DEFAULT 0,
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
       updated_at TEXT DEFAULT CURRENT_TIMESTAMP
-    )
-  `, (error) => {
+    )`, 
+    
+    (error) => {
     if (error) {
       console.error("Error creating launches table:", error.message);
     } else {
       console.log("Launches table ready.");
     }
   });
+  db.run(`
+    CREATE TABLE IF NOT EXISTS assets (
+
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+        launch_id INTEGER NOT NULL,
+
+        file_name TEXT,
+
+        file_path TEXT,
+
+        file_type TEXT,
+
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+
+        FOREIGN KEY (launch_id)
+        REFERENCES launches(id)
+
+    )
+  `);
 });
 
 module.exports = db;

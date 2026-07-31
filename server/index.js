@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const assetRoutes = require("./routes/assets");
 
 require("./db");
 
@@ -13,8 +14,9 @@ const PORT = 3000;
 
 app.use(cors());
 app.use(express.json());
+app.use("/uploads", express.static("uploads"));
 app.use("/api/launches", launchRoutes);
-
+app.use("/api/assets", assetRoutes);
 
 app.get("/", (req, res) => {
   res.json({
