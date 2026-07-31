@@ -76,13 +76,13 @@ http://localhost:5173
 
 ## Frontend
 
--React (UI)
--Vite (UI environment)
--Axios (communicate with backend API for the http request)
--React Router (navigation between both pages: launch and calendar)
--FullCalendar (library for the calendar)
--React Icons 
--CSS3 (styling)
+- React (UI)
+- Vite (UI environment)
+- Axios (communicate with backend API for the http request)
+- React Router (navigation between both pages: launch and calendar)
+- FullCalendar (library for the calendar)
+- React Icons 
+- CSS3 (styling)
 
 ## Backend
 
@@ -144,10 +144,10 @@ mock ups only: https://www.figma.com/design/lRftKFxQegDqab4VbAaFh1/Wireframes---
 
 # Known Issues or Limitations
 
--Roles are simulated (no authentication system).
--SQLite is intended for local development only.
--Uploaded assets are stored locally.
--No cloud storage integration
+- Roles are simulated (no authentication system).
+- SQLite is intended for local development only.
+- Uploaded assets are stored locally.
+- No cloud storage integration
 
 
 # Authors
