@@ -1,4 +1,4 @@
-# Adidas Launch Management
+# Product Launch Management Platform
 
 # Project Overview and Goals
 
