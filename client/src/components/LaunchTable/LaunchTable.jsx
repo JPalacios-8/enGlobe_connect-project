@@ -6,6 +6,8 @@ function LaunchTable({ launches, onSelectLaunch }) {
 
     <section className="launch-table">
 
+      <div className="table-container">
+
       <table>
 
         <thead>
@@ -64,6 +66,8 @@ function LaunchTable({ launches, onSelectLaunch }) {
         </tbody>
 
       </table>
+
+      </div>
 
     </section>
 

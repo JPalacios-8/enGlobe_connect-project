@@ -1,11 +1,21 @@
 .launch-page{
+
     display:grid;
+
     grid-template-columns:260px 1fr;
-    min-height:100vh;
+
+    height:100vh;
+
+    overflow:hidden;
+
+    background:#F5F7FA;
+
 }
 
 .main-content{
+    display: flex;
+    flex-direction:column;
     background:#F5F6F8;
     padding:36px;
-    overflow:auto;
+    overflow:hidden;
 }

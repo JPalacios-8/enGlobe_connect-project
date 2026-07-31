@@ -52,6 +52,33 @@ function Sidebar() {
         </NavLink>
 
       </nav>
+      
+          <div className="role-switcher">
+
+        <label>Role</label>
+
+        <div className="role-select">
+
+            <MdPerson />
+
+            <select
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+            >
+
+                <option value="Creator">
+                    Creator
+                </option>
+
+                <option value="Approver">
+                    Approver
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
 
     </aside>
   );

@@ -68,13 +68,28 @@ function LaunchModal({
 
       <div className="modal-header">
 
-        <div>
+        <div className="modal-title">
 
-          <h2>{launch.name}</h2>
+        <h2>{launch.name}</h2>
 
-          <p>{launch.assigned_to}</p>
+        <div className="modal-meta">
+
+            <p>
+
+            <strong>Creator:</strong> {launch.creator}
+
+            </p>
+
+            <p>
+
+            <strong>Assigned To:</strong> {launch.assigned_to}
+
+            </p>
 
         </div>
+
+        </div>
+        
 
         <button
           className="close-btn"
@@ -118,92 +133,99 @@ function LaunchModal({
 
     </div>
 
-      <div className="modal-actions">
 
-        {role === "Creator" ? (
+        <div className="modal-content">
 
-          <>
-
-            <button
-              onClick={() => onEdit(launch)}
-            >
-              Edit
-            </button>
-
-            <button
-              onClick={handleDelete}
-            >
-              Delete
-            </button>
-
-            {launch.status === "Draft" && (
-
-              <button
-                className="primary"
-                onClick={() =>
-                  updateStatus("In Review")
-                }
-              >
-                Submit to Review
-              </button>
-
+            {activeTab === "overview" && (
+                <OverviewTab launch={launch} />
             )}
 
-          </>
-
-        ) : (
-
-          <>
-
-            {launch.status === "In Review" && (
-
-              <>
-
-                <button
-                  className="primary"
-                  onClick={() =>
-                    updateStatus("Approved")
-                  }
-                >
-                  Approve
-                </button>
-
-                <button
-                  onClick={() =>
-                    updateStatus("Draft")
-                  }
-                >
-                  Send Back
-                </button>
-
-              </>
-
+            {activeTab === "description" && (
+                <DescriptionTab launch={launch} />
             )}
 
-          </>
+            {activeTab === "assets" && (
+                <AssetsTab launch={launch} />
+            )}
 
-        )}
+            {activeTab === "history" && (
+                <HistoryTab launch={launch} />
+            )}
 
-      </div>
+        </div>
 
-        <>
-        {activeTab === "overview" && (
-            <OverviewTab launch={launch} />
-        )}
+            <div className="modal-actions">
 
-        {activeTab === "description" && (
-            <DescriptionTab launch={launch} />
-        )}
+                {role === "Creator" && launch.status === "Draft" && (
 
-        {activeTab === "assets" && (
-            <AssetsTab launch={launch} />
-        )}
+                    <>
 
-        {activeTab === "history" && (
-            <HistoryTab launch={launch} />
-        )}
-    </>
+                        <button
+                            onClick={() => onEdit(launch)}
+                        >
+                            Edit
+                        </button>
 
+                        <button
+                            className="delete-btn"
+                            onClick={handleDelete}
+                        >
+                            Delete
+                        </button>
+
+                        <button
+                            className="primary"
+                            onClick={() => updateStatus("In Review")}
+                        >
+                            Submit to Review
+                        </button>
+
+                    </>
+
+                )}
+
+                {role === "Approver" && launch.status === "In Review" && (
+
+                    <>
+
+                        <button
+                            onClick={() => updateStatus("Draft")}
+                        >
+                            Send Back
+                        </button>
+
+                        <button
+                            className="approve-btn"
+                            onClick={() => updateStatus("Approved")}
+                        >
+                            Approve
+                        </button>
+
+                    </>
+
+                )}
+
+                {role === "Creator" && launch.status !== "Draft" && (
+
+                    <p className="modal-message">
+
+                        This launch is currently <strong>{launch.status}</strong>. No actions are available.
+
+                    </p>
+
+                )}
+
+                {role === "Approver" && launch.status !== "In Review" && (
+
+                    <p className="modal-message">
+
+                        No actions are available for this launch.
+
+                    </p>
+
+                )}
+
+            </div>
     </aside>
 
   );

@@ -137,3 +137,32 @@
     border:none;
 
 }
+.modal-title{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+.modal-meta{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:4px;
+
+}
+
+.modal-meta p{
+
+    margin:0;
+
+    font-size:14px;
+
+    color:#3c3f46;
+
+}
