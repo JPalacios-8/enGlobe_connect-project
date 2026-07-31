@@ -192,9 +192,9 @@ function LaunchForm({
           >
             <option value="">Select creator</option>
             <option>Emma Johnson</option>
-            <option>Daniel Wilson</option>
+            <option>Daniel Martinez</option>
             <option>Maria Garcia</option>
-            <option>Anders Johnson</option>
+            <option>Anakin Smith</option>
           </select>
         </div>
 
@@ -208,10 +208,10 @@ function LaunchForm({
             required
           >
             <option value="">Select assignee</option>
-            <option>Emma Johnson</option>
-            <option>Daniel Wilson</option>
+            <option>Juanita Palacios</option>
+            <option>Jhon Doe</option>
             <option>Maria Garcia</option>
-            <option>Anders Johnson</option>
+            <option>Tommy Tano</option>
           </select>
         </div>
 

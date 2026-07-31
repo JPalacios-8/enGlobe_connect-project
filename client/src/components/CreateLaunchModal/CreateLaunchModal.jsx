@@ -5,6 +5,7 @@ import LaunchForm from "../LaunchForm/LaunchForm";
 
 function CreateLaunchModal({
   launch,
+  initialDate,
   onClose,
   loadLaunches,
 }) {
@@ -68,7 +69,11 @@ function CreateLaunchModal({
 
       <LaunchForm
 
-        initialData={launch}
+        initialData={
+            launch
+                ? launch
+                : { launch_date: initialDate }
+        }
 
         onSubmit={handleSubmit}
 

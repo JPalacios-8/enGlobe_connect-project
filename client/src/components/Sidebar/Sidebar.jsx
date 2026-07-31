@@ -10,6 +10,8 @@ import logo from "../../assets/Adidas_Logo.svg";
 
 import { useRole } from "../../context/RoleContext";
 
+import { NavLink } from "react-router-dom";
+
 function Sidebar() {
 
   const { role, setRole } = useRole();
@@ -23,37 +25,33 @@ function Sidebar() {
 
       <nav className="sidebar-nav">
 
-        <button className="nav-item active">
-          <MdDashboard size={20} />
-          <span>Launches</span>
-        </button>
+        <NavLink
+          to="/launches"
+          className={({ isActive }) =>
+            isActive ? "nav-item active" : "nav-item"
+          }
+        >
 
-        <button className="nav-item">
-          <MdCalendarMonth size={20} />
+          <MdDashboard />
+
+          <span>Launches</span>
+
+        </NavLink>
+
+        <NavLink
+          to="/calendar"
+          className={({ isActive }) =>
+            isActive ? "nav-item active" : "nav-item"
+          }
+        >
+
+          <MdCalendarMonth />
+
           <span>Calendar</span>
-        </button>
+
+        </NavLink>
 
       </nav>
-
-      <div className="role-switcher">
-
-        <label>Role</label>
-
-        <div className="role-select">
-
-          <MdPerson size={18} />
-
-          <select
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-          >
-            <option value="Creator">Creator</option>
-            <option value="Approver">Approver</option>
-          </select>
-
-        </div>
-
-      </div>
 
     </aside>
   );
