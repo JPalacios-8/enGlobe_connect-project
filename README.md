@@ -1,5 +1,7 @@
 # Product Launch Management Platform
 
+Youtube link: https://youtu.be/Bcxd2glMpck
+
 # Project Overview and Goals
 
 Adidas Launch Management is a launch planning platform designed to centralize product launch information and collaboration between two main roles: creator and approver.
